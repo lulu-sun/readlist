@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add
+{% endblock %}
+
+{% block main %}
+    <form action="/add" method="POST">
+
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="title" placeholder="Book Title" type="text">
+        </div>
+
+        <div class="form-group">
+            <input autocomplete="off" class="form-control" name="author" placeholder="Author" type="text">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Add</button>
+
+    </form>
+    <script>
+        let input = document.querySelector('input');
+
+        input.addEventListener('keyup', function() {
+            $.get('/search?q=' + input.value, function(book_info) {
+              let html = '';
+
+              for (let id in book_info)
+              {
+                  let title = book_info[id].title;
+                  html += '<li>' + title + '</li>';
+              }
+
+              document.querySelector('ul').innerHTML = html;
+            });
+        });
+
+    </script>
+
+{% endblock %}

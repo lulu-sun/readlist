@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Book Recommendations
+{% endblock %}
+
+{% block main %}
+
+    <h1>Recommendations</h1>
+
+        <form action="/recommend" method="post">
+            <table style="width:100%" class="table table-striped">
+                <colgroup>
+                    <col span="1" style="width: 11%;">
+                    <col span="1" style="width: 15%;">
+                    <col span="1" >
+                    <col span="1" style="width:20%">
+                    <col span="1" style="width:30%">
+
+
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="text-end">Add to List</th>
+                        <th class="text-start"></th>
+                        <th class="text-start">Title</th>
+                        <th class="text-start">Author</th>
+                        <th class="text-start">Description</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for (k,v) in recs.items() %}
+
+                    <tr>
+                        <td class="text-center"><input type="checkbox" name="book" id="book" value="{{k}}"></td>
+                        <td class="text-center"><img src={{v['book_image']}} alt={{k}} id="book_cover"> </td>
+                        <td class="text-start">{{k}}</td>
+                        <td class="text-start">{{v['author']}}</td>
+                        <td class="text-start">{{v['description']}}</td>
+
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+
+            </table>
+            <input type="submit" value="Add selected to list">
+
+        </form>
+
+{% endblock %}

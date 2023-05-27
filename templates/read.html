@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Books Read
+{% endblock %}
+
+{% block main %}
+
+    <h1>Books I've Read</h1>
+
+    {% if books_list | length == 0 %}
+        <p>You have not finished reading any of the books in your reading list!</p>
+        <a href="{{url_for('index')}}"><button>Go to reading list</button></a>
+
+    {% else %}
+
+        <form action="/read" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-end" scope="col"></th>
+                        <th class="text-start" scope="col">Title</th>
+                        <th class="text-start" scope="col">Author</th>
+                        <th class="text-start" scope="col">Date Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for book in books_list %}
+                    <tr>
+                        <td class="text-end"><input type="checkbox" name="book" id="book" value="{{book['title']}}"></td>
+                        <td class="text-start">{{book['title']}}</td>
+                        <td class="text-start">{{book['author']}}</td>
+                        <td class="text-start">{{book['read_time']}}</td>
+                    </tr>
+
+                {% endfor %}
+                </tbody>
+
+
+            </table>
+            <input type="submit" value="Mark as unread">
+
+        </form>
+
+
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+    <h1>My Reading List</h1>
+
+    {% if books_list | length == 0 %}
+        <p>You have no books in your reading list!</p>
+        <a href="{{url_for('add')}}"><button>Add a book</button></a>
+
+    {% else %}
+        <form action="/" method="post">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-end"></th>
+                        <th class="text-start">Title</th>
+                        <th class="text-start">Author</th>
+                        <th class="text-start">Date Added</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                {% for book in books_list %}
+                    <tr>
+                        <td class="text-end"><input type="checkbox" name="book" id="book" value="{{book['title']}}"></td>
+                        <td class="text-start">{{book['title']}}</td>
+                        <td class="text-start">{{book['author']}}</td>
+                        <td class="text-start">{{book['add_time']}}</td>
+
+                    </tr>
+
+                <!--<input type="checkbox" name="book" id="book" value="{{book['title']}}"> {{book['title']}} by {{book['author']}} <br>-->
+
+                {% endfor %}
+                </tbody>
+
+            </table>
+            <input type="submit" value="Mark as read">
+
+        </form>
+    {% endif %}
+
+{% endblock %}
